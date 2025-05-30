@@ -1,5 +1,6 @@
 import json
 import os
+import platform
 import shutil
 from pathlib import Path
 from pkg_resources import resource_filename
@@ -9,8 +10,10 @@ APP_NAME = "com.twardoch.pedalboard-pluginary"
 
 def get_cache_path(cache_name):
     """ Get the path to a cache file. """
-    if os.name == "nt":
+    if platform.system() == "Windows":
         cache_folder = Path(os.getenv("APPDATA")) / APP_NAME
+    elif platform.system() == "Linux":
+        cache_folder = Path.home() / ".cache" / APP_NAME
     else:
         cache_folder = Path.home() / "Library" / "Application Support" / APP_NAME
     return cache_folder / f"{cache_name}.json"
