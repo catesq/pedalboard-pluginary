@@ -24,10 +24,10 @@ logger = logging.getLogger("Scanner")
 class PedalboardScanner:
     RE_AUFX = re.compile(r"aufx\s+(\w+)\s+(\w+)\s+-\s+(.*?):\s+(.*?)\s+\((.*?)\)")
 
-    def __init__(self):
+    def __init__(self, autosave):
         self.plugins_path = get_cache_path("plugins")
         self.plugins = {}
-        self.safe_save = True
+        self.safe_save = autosave
         self.ensure_ignores()
 
     def ensure_ignores(self):
@@ -210,3 +210,6 @@ class PedalboardScanner:
 
     def get_json(self):
         return json.dumps(self.plugins, indent=4)
+    
+    def get_plugins(self):
+        return self.plugins

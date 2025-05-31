@@ -3,6 +3,8 @@ from pathlib import Path
 from .data import load_json_file, get_cache_path
 from .scanner import PedalboardScanner
 
+
+
 class PedalboardPluginary:
     def __init__(self):
         self.plugins_path = get_cache_path("plugins")
@@ -10,9 +12,21 @@ class PedalboardPluginary:
 
     def load_data(self):
         if not self.plugins_path.exists():
-            scanner = PedalboardScanner()
+            scanner = PedalboardScanner(autosave=True)
             scanner.scan()
         self.plugins = load_json_file(self.plugins_path)
+
+    def list_plugins(self):
+        return json.dumps(self.plugins, indent=4)
+
+class PedalboardPlugindex:
+    def __init__(self):
+        self.load_data()
+
+    def load_data(self):
+        scanner = PedalboardScanner(autosave=False)
+        scanner.scan()
+        self.plugins = scanner.get_plugins()
 
     def list_plugins(self):
         return json.dumps(self.plugins, indent=4)
