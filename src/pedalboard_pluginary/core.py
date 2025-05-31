@@ -16,10 +16,13 @@ class PedalboardPluginary:
             scanner.scan()
         self.plugins = load_json_file(self.plugins_path)
 
-    def list_plugins(self):
+    def as_list(self):
+        return self.plugins.values()
+    
+    def as_json(self):
         return json.dumps(self.plugins, indent=4)
 
-class PedalboardPlugindex:
+class PedalboardPlugins:
     def __init__(self):
         self.load_data()
 
@@ -28,5 +31,8 @@ class PedalboardPlugindex:
         scanner.scan()
         self.plugins = scanner.get_plugins()
 
-    def list_plugins(self):
+    def as_list(self):
+        return self.plugins.values()
+    
+    def as_json(self):
         return json.dumps(self.plugins, indent=4)

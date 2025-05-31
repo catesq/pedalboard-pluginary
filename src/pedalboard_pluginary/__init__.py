@@ -15,4 +15,4 @@ except PackageNotFoundError:  # pragma: no cover
 finally:
     del version, PackageNotFoundError
 
-from .core import PedalboardPluginary
+from .core import PedalboardPluginary, PedalboardPlugins
