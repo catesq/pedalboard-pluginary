@@ -17,22 +17,23 @@ class PedalboardPluginary:
         self.plugins = load_json_file(self.plugins_path)
 
     def as_list(self):
-        return self.plugins.values()
-    
+        return list(self.plugins.values())
+
     def as_json(self):
         return json.dumps(self.plugins, indent=4)
+
 
 class PedalboardPlugins:
     def __init__(self):
         self.load_data()
 
     def load_data(self):
-        scanner = PedalboardScanner(autosave=False)
+        scanner = PedalboardScanner(autosave=False, nologging=True)
         scanner.scan()
         self.plugins = scanner.get_plugins()
 
     def as_list(self):
-        return self.plugins.values()
-    
+        return list(self.plugins.values())
+
     def as_json(self):
         return json.dumps(self.plugins, indent=4)
