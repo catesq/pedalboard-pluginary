@@ -132,7 +132,7 @@ class PedalboardScanner:
         plugin_params = {
             k: from_pb_param(plugin.__getattr__(k)) for k in plugin.parameters.keys()
         }
-        return plugin_params
+        return (plugin_params, plugin.is_instrument)
 
     def scan_typed_plugin_path(
         self, plugin_type, plugin_key, plugin_path, plugin_fn, plugin_loader
@@ -142,13 +142,14 @@ class PedalboardScanner:
         for plugin_name in plugin_names:
             if plugin_name in self.plugins:
                 continue
-            plugin_params = self.get_plugin_params(plugin_path, plugin_name)
+            (plugin_params, is_instrument) = self.get_plugin_params(plugin_path, plugin_name)
             plugin_entry = {
                 "name": plugin_name,
                 "path": plugin_path,
                 "filename": plugin_fn,
                 "type": plugin_type,
                 "params": plugin_params,
+                "is_instrument": is_instrument,
             }
             self.plugins[plugin_name] = plugin_entry
 
